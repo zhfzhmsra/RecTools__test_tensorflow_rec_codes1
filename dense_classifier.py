@@ -323,7 +323,7 @@ def main():
   sparse_labels = tf.reshape(batch_labels, [-1, 1])
   derived_size = tf.shape(batch_labels)[0]
   indices = tf.reshape(tf.range(0, derived_size, 1), [-1, 1])
-  concated = tf.concat(axis=1, values=[indices, sparse_labels])
+  concated = tf.concat(1, values=[indices, sparse_labels])
   outshape = tf.stack([derived_size, LABEL_SIZE])
   new_batch_labels = tf.sparse_to_dense(concated, outshape, 1.0, 0.0)
   _, train_auc = tf.contrib.metrics.streaming_auc(train_softmax,
@@ -343,7 +343,7 @@ def main():
   sparse_labels = tf.reshape(validate_batch_labels, [-1, 1])
   derived_size = tf.shape(validate_batch_labels)[0]
   indices = tf.reshape(tf.range(0, derived_size, 1), [-1, 1])
-  concated = tf.concat(axis=1, values=[indices, sparse_labels])
+  concated = tf.concat(1, values=[indices, sparse_labels])
   outshape = tf.stack([derived_size, LABEL_SIZE])
   new_validate_batch_labels = tf.sparse_to_dense(concated, outshape, 1.0, 0.0)
   _, validate_auc = tf.contrib.metrics.streaming_auc(validate_softmax,
